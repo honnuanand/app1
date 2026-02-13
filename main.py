@@ -12,482 +12,307 @@ async def root():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sewa LEAD - Leadership, Education and Development</title>
+    <title>Sewa LEAD Detroit - Leadership, Education and Development</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a5e; line-height: 1.7; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a5e; line-height: 1.7; background: #fff; }
+        img { max-width: 100%; display: block; }
+        a { color: #1a1a5e; }
 
-        /* Nav */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 2rem; background: #1a1a5e; position: sticky; top: 0; z-index: 100; }
-        nav .logo { font-size: 1.3rem; font-weight: 700; color: #fff; letter-spacing: 1px; }
+        /* ===== NAV ===== */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; height: 64px; background: #1a1a5e; position: sticky; top: 0; z-index: 100; }
+        nav .logo { font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
         nav .logo span { color: #f0a500; }
         nav ul { list-style: none; display: flex; gap: 1.5rem; }
-        nav a { text-decoration: none; color: rgba(255,255,255,0.85); font-weight: 500; font-size: 0.9rem; transition: color 0.2s; }
+        nav a { text-decoration: none; color: rgba(255,255,255,0.8); font-weight: 500; font-size: 0.88rem; transition: color 0.2s; }
         nav a:hover { color: #f0a500; }
-        .nav-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
 
-        /* Hero */
-        .hero { background: linear-gradient(135deg, #1a1a5e 0%, #2d2d8a 100%); color: #fff; text-align: center; padding: 5rem 2rem 4rem; position: relative; overflow: hidden; }
-        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #f0a500, #f5c842, #f0a500); }
-        .hero .badge { display: inline-block; background: rgba(240,165,0,0.15); border: 1px solid rgba(240,165,0,0.4); color: #f5c842; padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 1px; }
-        .hero h1 { font-size: 3.2rem; margin-bottom: 0.5rem; }
-        .hero h1 .highlight { color: #f0a500; }
-        .hero .subtitle { font-size: 1.4rem; font-weight: 300; opacity: 0.9; margin-bottom: 0.5rem; }
-        .hero .tagline { font-size: 1.1rem; opacity: 0.7; margin-bottom: 2.5rem; max-width: 650px; margin-left: auto; margin-right: auto; }
-        .hero .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .btn-primary { display: inline-block; padding: 0.8rem 2rem; background: #f0a500; color: #1a1a5e; border-radius: 8px; text-decoration: none; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(240,165,0,0.4); }
-        .btn-secondary { display: inline-block; padding: 0.8rem 2rem; background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); border-radius: 8px; text-decoration: none; font-weight: 600; transition: border-color 0.2s; }
-        .btn-secondary:hover { border-color: #f0a500; color: #f0a500; }
+        /* ===== ANNOUNCEMENT BAR ===== */
+        .announcement { background: #f0a500; color: #1a1a5e; text-align: center; padding: 0.6rem 2rem; font-size: 0.9rem; font-weight: 600; }
+        .announcement a { color: #1a1a5e; text-decoration: underline; }
 
-        /* Section base */
-        section { padding: 4.5rem 2rem; }
+        /* ===== HERO ===== */
+        .hero { position: relative; min-height: 520px; display: flex; align-items: center; background: linear-gradient(135deg, #1a1a5e 0%, #2d2d8a 50%, #1a1a5e 100%); overflow: hidden; }
+        .hero-overlay { position: absolute; inset: 0; background: rgba(26,26,94,0.65); z-index: 1; }
+        .hero-bg { position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 520"><rect fill="%231a1a5e" width="1440" height="520"/><circle cx="200" cy="400" r="300" fill="%23f0a500" opacity="0.05"/><circle cx="1200" cy="100" r="400" fill="%23f5c842" opacity="0.04"/></svg>') center/cover; }
+        .hero-content { position: relative; z-index: 2; max-width: 700px; padding: 4rem 2rem 4rem 4rem; }
+        .hero-content .chapter-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(240,165,0,0.2); border: 1px solid rgba(240,165,0,0.4); color: #f5c842; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .hero-content h1 { font-size: 3rem; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+        .hero-content h1 .gold { color: #f0a500; }
+        .hero-content p { font-size: 1.15rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; line-height: 1.8; }
+        .hero-content .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; border: none; cursor: pointer; }
+        .btn-gold { background: #f0a500; color: #1a1a5e; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(240,165,0,0.4); }
+        .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.3); }
+        .btn-outline:hover { border-color: #f0a500; color: #f0a500; }
+        .hero-image { position: absolute; right: 0; top: 0; bottom: 0; width: 45%; z-index: 1; }
+        .hero-image .placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, rgba(240,165,0,0.15), rgba(26,26,94,0.3)); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3); font-size: 0.9rem; text-align: center; padding: 2rem; }
+
+        /* ===== SECTION UTILITIES ===== */
+        section { padding: 5rem 2rem; }
         .container { max-width: 1100px; margin: 0 auto; }
-        .section-label { display: inline-block; background: #f0a500; color: #1a1a5e; padding: 0.3rem 1rem; border-radius: 4px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem; }
-        .section-title { font-size: 2.2rem; margin-bottom: 1rem; color: #1a1a5e; }
-        .section-subtitle { color: #475569; font-size: 1.05rem; max-width: 700px; margin-bottom: 3rem; }
-        .text-center { text-align: center; }
-        .text-center .section-subtitle { margin-left: auto; margin-right: auto; }
+        .section-header { margin-bottom: 3rem; }
+        .section-header .label { display: inline-block; background: #f0a500; color: #1a1a5e; padding: 0.25rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.75rem; }
+        .section-header h2 { font-size: 2.2rem; color: #1a1a5e; margin-bottom: 0.75rem; line-height: 1.3; }
+        .section-header p { color: #475569; font-size: 1.05rem; max-width: 650px; line-height: 1.8; }
+        .section-header.centered { text-align: center; }
+        .section-header.centered p { margin-left: auto; margin-right: auto; }
+        .divider { width: 60px; height: 4px; background: #f0a500; border-radius: 2px; margin: 1rem 0; }
+        .section-header.centered .divider { margin: 1rem auto; }
 
-        /* About */
-        .about { background: #f0f6ff; }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-        .about-text p { color: #334155; margin-bottom: 1rem; font-size: 1.05rem; }
-        .about-stats { display: flex; gap: 2rem; margin-top: 2rem; }
-        .stat { text-align: center; }
-        .stat .num { font-size: 2rem; font-weight: 800; color: #1a1a5e; }
-        .stat .label { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
-        .about-visual { background: linear-gradient(135deg, #e8f0fe, #dbeafe); border-radius: 16px; padding: 3rem 2rem; text-align: center; }
-        .about-visual .lead-icon { font-size: 1.2rem; letter-spacing: 8px; font-weight: 800; color: #1a1a5e; margin-bottom: 1rem; }
-        .about-visual .lead-icon span { color: #f0a500; }
-        .about-visual .lead-meaning { display: flex; flex-direction: column; gap: 0.75rem; text-align: left; padding-left: 1rem; }
-        .about-visual .lead-meaning div { display: flex; align-items: center; gap: 0.75rem; font-size: 1.05rem; font-weight: 600; color: #1a1a5e; }
-        .about-visual .lead-meaning .letter { width: 36px; height: 36px; background: #1a1a5e; color: #f0a500; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; flex-shrink: 0; }
+        /* ===== ABOUT ===== */
+        .about { background: #f8fafc; }
+        .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-text h3 { font-size: 1.3rem; color: #1a1a5e; margin: 1.5rem 0 0.75rem; }
+        .about-text h3:first-of-type { margin-top: 0; }
+        .about-text p { color: #334155; font-size: 1rem; margin-bottom: 1rem; }
+        .about-image { border-radius: 16px; overflow: hidden; background: linear-gradient(135deg, #e0e7ff, #dbeafe); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+        .img-placeholder { width: 100%; height: 100%; min-height: 300px; background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.85rem; gap: 0.5rem; padding: 2rem; text-align: center; border: 2px dashed #cbd5e1; border-radius: 12px; }
+        .img-placeholder .icon { font-size: 2rem; opacity: 0.5; }
+        .about-stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .stat-card { background: #fff; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .stat-card .number { font-size: 2rem; font-weight: 800; color: #1a1a5e; }
+        .stat-card .label { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.25rem; }
 
-        /* Purpose */
-        .purpose-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .purpose-card { background: #fff; border-radius: 12px; padding: 2rem; border-left: 4px solid #f0a500; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-        .purpose-card .icon { font-size: 2rem; margin-bottom: 1rem; }
-        .purpose-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; color: #1a1a5e; }
-        .purpose-card p { color: #475569; font-size: 0.95rem; }
+        /* ===== ANNOUNCEMENTS ===== */
+        .announcements-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .announcement-card { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: box-shadow 0.2s; }
+        .announcement-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+        .announcement-card .card-image { background: linear-gradient(135deg, #eef2ff, #dbeafe); display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.8rem; min-height: 160px; border: 2px dashed #cbd5e1; margin: 0.75rem; border-radius: 8px; text-align: center; padding: 1rem; }
+        .announcement-card .card-body { padding: 1.5rem 1.5rem 1.5rem 0; }
+        .announcement-card .date { font-size: 0.8rem; color: #f0a500; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .announcement-card h3 { font-size: 1.15rem; color: #1a1a5e; margin-bottom: 0.5rem; }
+        .announcement-card p { color: #475569; font-size: 0.95rem; line-height: 1.7; }
+        .announcement-card .read-more { display: inline-block; margin-top: 0.75rem; color: #1a1a5e; font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+        .announcement-card .read-more:hover { color: #f0a500; }
 
-        /* Program Structure */
+        /* ===== ACTIVITIES ===== */
+        .activities { background: #f8fafc; }
+        .activity-section { margin-bottom: 4rem; }
+        .activity-section:last-child { margin-bottom: 0; }
+        .activity-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .activity-layout.reverse { direction: rtl; }
+        .activity-layout.reverse > * { direction: ltr; }
+        .activity-text h3 { font-size: 1.5rem; color: #1a1a5e; margin-bottom: 0.75rem; }
+        .activity-text p { color: #334155; font-size: 1rem; margin-bottom: 1rem; line-height: 1.8; }
+        .activity-text ul { padding-left: 1.2rem; margin-bottom: 1rem; }
+        .activity-text li { color: #334155; font-size: 0.95rem; margin-bottom: 0.4rem; }
+        .activity-image { border-radius: 12px; overflow: hidden; aspect-ratio: 16/10; }
+
+        /* ===== PROGRAM STRUCTURE ===== */
         .structure { background: #1a1a5e; color: #fff; }
-        .structure .section-label { background: #f0a500; color: #1a1a5e; }
-        .structure .section-title { color: #fff; }
-        .structure .section-subtitle { color: rgba(255,255,255,0.7); }
-        .levels { display: flex; flex-direction: column; gap: 0; max-width: 800px; margin: 0 auto; }
-        .level { display: flex; align-items: stretch; position: relative; }
-        .level-marker { width: 60px; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-        .level-dot { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
-        .level-line { flex: 1; width: 3px; background: rgba(255,255,255,0.2); }
-        .level-content { flex: 1; padding: 0.5rem 0 2rem 1.5rem; }
-        .level-content h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
-        .level-content .award { font-size: 0.85rem; opacity: 0.7; margin-bottom: 0.4rem; }
-        .level-content p { font-size: 0.9rem; opacity: 0.8; }
-        .level-bronze .level-dot { background: #cd7f32; color: #fff; }
-        .level-silver .level-dot { background: #c0c0c0; color: #1a1a5e; }
-        .level-gold .level-dot { background: #f0a500; color: #1a1a5e; }
-        .level-platinum .level-dot { background: linear-gradient(135deg, #e5e4e2, #fff); color: #1a1a5e; }
+        .structure .section-header h2 { color: #fff; }
+        .structure .section-header p { color: rgba(255,255,255,0.7); }
+        .structure .divider { background: #f0a500; }
+        .pathway { max-width: 800px; margin: 0 auto; }
+        .pathway-step { display: grid; grid-template-columns: 80px 1fr; gap: 1.5rem; margin-bottom: 2.5rem; position: relative; }
+        .pathway-step::before { content: ''; position: absolute; left: 39px; top: 70px; bottom: -20px; width: 2px; background: rgba(255,255,255,0.15); }
+        .pathway-step:last-child::before { display: none; }
+        .step-badge { width: 80px; height: 80px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+        .step-badge .year { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+        .step-badge .level { font-size: 1.5rem; }
+        .badge-bronze { background: linear-gradient(135deg, #cd7f32, #a0622a); color: #fff; }
+        .badge-silver { background: linear-gradient(135deg, #c0c0c0, #a8a8a8); color: #1a1a5e; }
+        .badge-gold { background: linear-gradient(135deg, #f0a500, #d4920a); color: #1a1a5e; }
+        .badge-platinum { background: linear-gradient(135deg, #e8e8e8, #fff); color: #1a1a5e; }
+        .step-content h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+        .step-content .award-name { color: #f0a500; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .step-content p { color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.7; }
 
-        /* Benefits */
-        .benefits { background: #f8fafc; }
-        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
-        .benefit { background: #fff; border-radius: 10px; padding: 1.5rem; text-align: center; transition: box-shadow 0.2s, transform 0.2s; border: 1px solid #e2e8f0; }
-        .benefit:hover { box-shadow: 0 8px 24px rgba(26,26,94,0.1); transform: translateY(-3px); }
-        .benefit .icon { width: 48px; height: 48px; background: #eef2ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin: 0 auto 1rem; }
-        .benefit h3 { font-size: 0.95rem; margin-bottom: 0.4rem; color: #1a1a5e; }
-        .benefit p { color: #64748b; font-size: 0.85rem; }
+        /* ===== GALLERY ===== */
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .gallery-grid .gallery-item { border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; }
+        .gallery-grid .gallery-item.tall { grid-row: span 2; aspect-ratio: auto; }
 
-        /* Program Details */
-        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .detail-card { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .detail-card h3 { font-size: 1rem; color: #1a1a5e; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        .detail-card p, .detail-card li { color: #475569; font-size: 0.9rem; }
-        .detail-card ul { padding-left: 1.2rem; }
-        .detail-card li { margin-bottom: 0.3rem; }
+        /* ===== INVOLVEMENT ===== */
+        .involvement { background: linear-gradient(135deg, #1a1a5e 0%, #2d2d8a 100%); color: #fff; }
+        .involvement .section-header h2 { color: #fff; }
+        .involvement .section-header p { color: rgba(255,255,255,0.7); }
+        .involvement .divider { background: #f0a500; }
+        .involve-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .involve-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2.5rem 2rem; transition: background 0.2s, transform 0.2s; }
+        .involve-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+        .involve-card .card-icon { font-size: 2.5rem; margin-bottom: 1.25rem; }
+        .involve-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; }
+        .involve-card p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.7; }
 
-        /* Awards */
-        .awards { background: linear-gradient(180deg, #f0f6ff, #fff); }
-        .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .award-card { text-align: center; padding: 2rem 1.5rem; border-radius: 12px; background: #fff; border: 2px solid #e2e8f0; transition: border-color 0.2s; }
-        .award-card:hover { border-color: #f0a500; }
-        .award-card .medal { font-size: 3rem; margin-bottom: 1rem; }
-        .award-card h3 { font-size: 1.1rem; color: #1a1a5e; margin-bottom: 0.3rem; }
-        .award-card .year { font-size: 0.85rem; color: #f0a500; font-weight: 700; margin-bottom: 0.5rem; }
-        .award-card p { color: #64748b; font-size: 0.85rem; }
+        /* ===== DETAILS ===== */
+        .details { background: #f8fafc; }
+        .details-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .detail-block { background: #fff; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .detail-block h3 { font-size: 1.1rem; color: #1a1a5e; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 2px solid #f0a500; }
+        .detail-block p { color: #334155; font-size: 0.95rem; margin-bottom: 0.75rem; line-height: 1.7; }
+        .detail-block ul { padding-left: 1.2rem; }
+        .detail-block li { color: #334155; font-size: 0.93rem; margin-bottom: 0.5rem; line-height: 1.6; }
 
-        /* Chapters */
-        .chapters { background: #1a1a5e; color: #fff; }
-        .chapters .section-label { background: #f0a500; color: #1a1a5e; }
-        .chapters .section-title { color: #fff; }
-        .chapters .section-subtitle { color: rgba(255,255,255,0.7); }
-        .chapters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-        .chapter { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 1.25rem; text-align: center; transition: background 0.2s, transform 0.2s; cursor: default; }
-        .chapter:hover { background: rgba(240,165,0,0.12); transform: translateY(-2px); }
-        .chapter .region { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #f0a500; margin-bottom: 0.3rem; }
-        .chapter h3 { font-size: 1rem; color: #fff; }
+        /* ===== CTA ===== */
+        .cta-banner { background: #f0a500; padding: 4rem 2rem; text-align: center; }
+        .cta-banner h2 { font-size: 2.2rem; color: #1a1a5e; margin-bottom: 1rem; }
+        .cta-banner p { color: #1a1a5e; opacity: 0.8; max-width: 600px; margin: 0 auto 2rem; font-size: 1.05rem; line-height: 1.7; }
+        .btn-dark { background: #1a1a5e; color: #fff; }
+        .btn-dark:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,26,94,0.3); }
 
-        /* Timeline */
-        .timeline-bar { display: flex; gap: 0; border-radius: 12px; overflow: hidden; margin-top: 2rem; }
-        .timeline-phase { flex: 1; padding: 1.5rem 1rem; text-align: center; }
-        .timeline-phase h4 { font-size: 0.9rem; margin-bottom: 0.3rem; }
-        .timeline-phase p { font-size: 0.8rem; opacity: 0.85; }
-        .phase-1 { background: #1a1a5e; color: #fff; }
-        .phase-2 { background: #2d2d8a; color: #fff; }
-        .phase-3 { background: #f0a500; color: #1a1a5e; }
-        .phase-4 { background: #f5c842; color: #1a1a5e; }
+        /* ===== FOOTER ===== */
+        footer { background: #0f0f3d; color: rgba(255,255,255,0.5); padding: 3rem 2rem; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
+        .footer-grid h4 { color: #fff; font-size: 0.95rem; margin-bottom: 1rem; }
+        .footer-grid p { font-size: 0.88rem; line-height: 1.7; }
+        .footer-grid a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.88rem; }
+        .footer-grid a:hover { color: #f0a500; }
+        .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+        .footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.8rem; text-align: center; }
 
-        /* Activities */
-        .activities { background: #fff8ee; }
-        .activities-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .activity-category { background: #fff; border-radius: 12px; padding: 1.75rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-        .activity-category .cat-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 3px solid #f0a500; }
-        .activity-category .cat-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
-        .activity-category h3 { font-size: 1.05rem; color: #1a1a5e; }
-        .activity-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-        .activity-list li { display: flex; align-items: center; gap: 0.6rem; color: #334155; font-size: 0.92rem; }
-        .activity-list li::before { content: ''; width: 8px; height: 8px; background: #f0a500; border-radius: 50%; flex-shrink: 0; }
-        .cat-green { background: #ecfdf5; }
-        .cat-red { background: #fef2f2; }
-        .cat-orange { background: #fff7ed; }
-        .cat-blue { background: #eff6ff; }
-        .cat-purple { background: #f5f3ff; }
-
-        /* How to Help */
-        .help-cards { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
-        .help-card { background: #fff; border-radius: 12px; padding: 2rem 1.5rem; text-align: center; width: 240px; border: 2px solid #e2e8f0; transition: border-color 0.2s, transform 0.2s; }
-        .help-card:hover { border-color: #f0a500; transform: translateY(-3px); }
-        .help-card .help-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-        .help-card h3 { font-size: 1rem; color: #1a1a5e; margin-bottom: 0.4rem; }
-        .help-card p { color: #64748b; font-size: 0.85rem; }
-
-        /* CTA */
-        .cta-section { background: linear-gradient(135deg, #f0a500, #f5c842); text-align: center; padding: 4rem 2rem; }
-        .cta-section h2 { font-size: 2rem; color: #1a1a5e; margin-bottom: 1rem; }
-        .cta-section p { color: #1a1a5e; opacity: 0.8; max-width: 600px; margin: 0 auto 2rem; font-size: 1.05rem; }
-        .btn-dark { display: inline-block; padding: 0.8rem 2.5rem; background: #1a1a5e; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 700; transition: transform 0.2s; }
-        .btn-dark:hover { transform: translateY(-2px); }
-
-        /* Footer */
-        footer { background: #0f0f3d; color: rgba(255,255,255,0.6); padding: 2.5rem 2rem; }
-        .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .footer-links { display: flex; gap: 1.5rem; }
-        .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; }
-        .footer-links a:hover { color: #f0a500; }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .hero .subtitle { font-size: 1.1rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .awards-grid { grid-template-columns: 1fr; }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .about-layout, .activity-layout, .details-layout { grid-template-columns: 1fr; }
+            .activity-layout.reverse { direction: ltr; }
+            .hero-image { display: none; }
+            .hero-content { padding: 3rem 2rem; max-width: 100%; }
+            .hero h1 { font-size: 2.2rem; }
+            .involve-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid .gallery-item.tall { grid-row: span 1; aspect-ratio: 4/3; }
+            .about-stats-row { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr; }
+            .announcement-card { grid-template-columns: 1fr; }
+            .announcement-card .card-image { margin: 0.75rem 0.75rem 0; min-height: 120px; }
+            .announcement-card .card-body { padding: 1.25rem; }
             nav ul { display: none; }
-            .nav-toggle { display: block; }
-            .about-stats { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Nav -->
     <nav>
-        <div class="logo">SEWA <span>LEAD</span></div>
-        <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+        <div class="logo">SEWA <span>LEAD</span> &middot; Detroit</div>
         <ul>
             <li><a href="#about">About</a></li>
-            <li><a href="#structure">Program</a></li>
-            <li><a href="#benefits">Benefits</a></li>
+            <li><a href="#news">News</a></li>
             <li><a href="#activities">Activities</a></li>
-            <li><a href="#awards">Awards</a></li>
-            <li><a href="#chapters">Chapters</a></li>
-            <li><a href="#join">Join</a></li>
+            <li><a href="#program">Program</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#join">Get Involved</a></li>
         </ul>
     </nav>
 
+    <!-- Announcement Bar -->
+    <div class="announcement">
+        Registration for 2025-2026 LEAD year is now open! Online courses start January 23rd. <a href="https://www.sewausa.org/Lead">Register here &rarr;</a>
+    </div>
+
     <!-- Hero -->
     <div class="hero">
-        <div class="badge">SEWA INTERNATIONAL USA</div>
-        <h1>Sewa <span class="highlight">LEAD</span> Program</h1>
-        <div class="subtitle">Leadership, Education and Development</div>
-        <p class="tagline">A youth development program empowering high school students to serve their communities, build leadership skills, and experience the joy of giving.</p>
-        <div class="cta-group">
-            <a href="#join" class="btn-primary">Join LEAD</a>
-            <a href="#structure" class="btn-secondary">Explore the Program</a>
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="chapter-badge">Sewa International USA &middot; Detroit Chapter</div>
+            <h1>Pathways to Serve Through <span class="gold">Leadership</span></h1>
+            <p>Sewa LEAD is a youth development program for high school students. We empower the next generation to serve their communities, develop leadership skills, and become socially conscious citizens &mdash; right here in Metro Detroit.</p>
+            <div class="hero-actions">
+                <a href="https://www.sewausa.org/Lead" class="btn btn-gold" target="_blank">Register for LEAD</a>
+                <a href="#activities" class="btn btn-outline">See What We Do</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="placeholder">
+                <div style="font-size:2rem;margin-bottom:0.5rem;">&#128247;</div>
+                Chapter hero photo<br>
+                <em style="font-size:0.8rem;">e.g., group photo of LEADs in yellow shirts at a service event</em>
+            </div>
         </div>
     </div>
 
-    <!-- About LEAD -->
+    <!-- About -->
     <section class="about" id="about">
         <div class="container">
-            <div class="about-grid">
+            <div class="about-layout">
                 <div class="about-text">
-                    <div class="section-label">About</div>
-                    <h2 class="section-title">What is Sewa LEAD?</h2>
-                    <p>LEAD is Sewa International's Youth Development Program for high school students. It provides a platform for participants to serve the greater community and experience the joy of selfless service.</p>
-                    <p>The program introduces socially conscious leadership in young people, combining impactful in-person experiences with structured online learning through local Sewa chapters.</p>
-                    <p>Delivered in a hybrid format, local chapters host speaker series, chapter meetings, and hands-on service projects, while nationally curated online courses run through Sewa Academy and the National Youth Conference.</p>
-                    <div class="about-stats">
-                        <div class="stat"><div class="num">4</div><div class="label">Year Program</div></div>
-                        <div class="stat"><div class="num">100+</div><div class="label">Hours / Year</div></div>
-                        <div class="stat"><div class="num">4</div><div class="label">Award Levels</div></div>
+                    <div class="section-header">
+                        <div class="label">About LEAD</div>
+                        <h2>Leadership, Education<br>and Development</h2>
+                        <div class="divider"></div>
+                    </div>
+                    <p>LEAD is Sewa International's flagship youth development program. It's a 4-year volunteer service-learning leadership graduation program designed for high school students in grades 8 through 12. The Detroit chapter brings together students from across Metro Detroit to learn, serve, and grow as leaders.</p>
+
+                    <h3>Our Purpose</h3>
+                    <p>We provide a platform for young people to serve the greater community and experience the joy of giving. Through hands-on service projects, structured online learning, and mentorship from dedicated parent volunteers, LEAD introduces socially conscious leadership to the next generation.</p>
+
+                    <h3>How It Works</h3>
+                    <p>The program is delivered in a hybrid format. Our Detroit chapter hosts monthly speaker series, chapter meetings, and community service projects throughout the year. Students also participate in nationally curated online courses through Sewa Academy from January through March, and attend the National Youth Conference each July.</p>
+                </div>
+                <div class="about-image">
+                    <div class="img-placeholder">
+                        <div class="icon">&#128247;</div>
+                        Chapter photo<br>
+                        <em>e.g., LEADs at a chapter meeting or service event</em>
                     </div>
                 </div>
-                <div class="about-visual">
-                    <div class="lead-icon">L<span>E</span>AD</div>
-                    <div class="lead-meaning">
-                        <div><span class="letter">L</span> Leadership</div>
-                        <div><span class="letter" style="background:#f0a500;color:#1a1a5e;">E</span> Education</div>
-                        <div><span class="letter">A</span> And</div>
-                        <div><span class="letter">D</span> Development</div>
-                    </div>
+            </div>
+            <div class="about-stats-row">
+                <div class="stat-card">
+                    <div class="number">4</div>
+                    <div class="label">Year Program</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">100+</div>
+                    <div class="label">Service Hours / Year</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">$150</div>
+                    <div class="label">Annual Registration</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">Oct-Aug</div>
+                    <div class="label">Program Cycle</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Purpose -->
-    <section id="purpose">
+    <!-- Announcements -->
+    <section id="news">
         <div class="container">
-            <div class="text-center">
-                <div class="section-label">Purpose</div>
-                <h2 class="section-title">Why Sewa LEAD?</h2>
-                <p class="section-subtitle">Building the next generation of service-minded leaders through community engagement, mentorship, and hands-on experience.</p>
+            <div class="section-header">
+                <div class="label">Announcements</div>
+                <h2>Latest News &amp; Updates</h2>
+                <div class="divider"></div>
+                <p>Stay informed about upcoming events, registration deadlines, and chapter activities.</p>
             </div>
-            <div class="purpose-grid">
-                <div class="purpose-card">
-                    <div class="icon">&#129309;</div>
-                    <h3>Serve the Community</h3>
-                    <p>Provides a platform for participants to serve the greater community and experience the joy of giving through hands-on service projects.</p>
-                </div>
-                <div class="purpose-card">
-                    <div class="icon">&#127891;</div>
-                    <h3>Socially Conscious Leadership</h3>
-                    <p>Introduces socially conscious leadership in youngsters, cultivating civic awareness and a service-oriented mindset.</p>
-                </div>
-                <div class="purpose-card">
-                    <div class="icon">&#128218;</div>
-                    <h3>Hybrid Learning</h3>
-                    <p>Combines in-person chapter experiences with nationally curated online courses through Sewa Academy on the Zoho LMS platform.</p>
-                </div>
-                <div class="purpose-card">
-                    <div class="icon">&#129504;</div>
-                    <h3>College-Ready Skills</h3>
-                    <p>Develops critical thinking, responsibility, time management, public speaking, and planning skills valuable for college and beyond.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Program Structure -->
-    <section class="structure" id="structure">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label">Program Structure</div>
-                <h2 class="section-title">4-Year Graduation Pathway</h2>
-                <p class="section-subtitle">Students progress through four levels, each building on the last. Entry starts at Level 1. Minimum 100 hours per year for the Sewa National Presidential Award. Pass score requires minimum 75 hours.</p>
-            </div>
-            <div class="levels">
-                <div class="level level-bronze">
-                    <div class="level-marker"><div class="level-dot">1</div><div class="level-line"></div></div>
-                    <div class="level-content">
-                        <h3>Level 1: Bronze</h3>
-                        <div class="award">Volunteer Service Award &middot; Bronze Pin</div>
-                        <p>Ready to LEAD (RTL) Course &mdash; Introduction to service, community engagement fundamentals, and Sewa values.</p>
+            <div class="announcements-list">
+                <div class="announcement-card">
+                    <div class="card-image">
+                        <div>&#128247;<br>Event photo</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="date">January 2026</div>
+                        <h3>Online Learning Modules Begin January 23rd</h3>
+                        <p>All LEAD online courses will kick off the weekend of January 23rd and run through March 14th. Courses are hosted on Zoom with live classes, and quizzes and homework are available on Sewa Academy (Zoho LMS). There will be a break during Presidents Day weekend. Mentors and students should ensure WhatsApp groups are set up for each team.</p>
+                        <a href="#" class="read-more">Learn more &rarr;</a>
                     </div>
                 </div>
-                <div class="level level-silver">
-                    <div class="level-marker"><div class="level-dot">2</div><div class="level-line"></div></div>
-                    <div class="level-content">
-                        <h3>Level 2: Silver</h3>
-                        <div class="award">Volunteer Service Learning Award &middot; Silver Pin</div>
-                        <p>Design To LEAD (DTL) Course &mdash; Service learning with mandatory project completion. Deeper engagement with community initiatives.</p>
+                <div class="announcement-card">
+                    <div class="card-image">
+                        <div>&#128247;<br>Service event photo</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="date">Upcoming</div>
+                        <h3>Forgotten Harvest Food Bank Service Day</h3>
+                        <p>Join your fellow LEADs for our next Forgotten Harvest food bank volunteering session. We'll be sorting and packing food donations for families across Metro Detroit. Parents are welcome to join &mdash; remember, 20 hours of parent participation is part of the program commitment. Please RSVP through your team WhatsApp group.</p>
+                        <a href="#" class="read-more">RSVP now &rarr;</a>
                     </div>
                 </div>
-                <div class="level level-gold">
-                    <div class="level-marker"><div class="level-dot">3</div><div class="level-line"></div></div>
-                    <div class="level-content">
-                        <h3>Level 3: Gold</h3>
-                        <div class="award">Volunteer Service Learning Leadership Award &middot; Gold Medal</div>
-                        <p>VANI &mdash; The Sewa LEADership Course. LEAD Graduation, DTL Mentor, Team Leader. Certificate is cumulative accomplishment of three years.</p>
+                <div class="announcement-card">
+                    <div class="card-image">
+                        <div>&#128247;<br>Award ceremony photo</div>
                     </div>
-                </div>
-                <div class="level level-platinum">
-                    <div class="level-marker"><div class="level-dot">4</div><div class="level-line"></div></div>
-                    <div class="level-content">
-                        <h3>Level 4: Platinum</h3>
-                        <div class="award">National Service Leadership Excellence Award</div>
-                        <p>National Youth Council membership. National-level planning and execution. Graduates become part of national leadership.</p>
+                    <div class="card-body">
+                        <div class="date">Registration Open</div>
+                        <h3>2025-2026 LEAD Registration Now Open</h3>
+                        <p>New and returning students can now register for the upcoming LEAD year. The program is open to all 8th through 12th graders regardless of citizenship status. Registration fee is $150 per year. Students must enter at Level 1 (Bronze) and progress through the levels each year. Visit sewausa.org/Lead to complete your registration.</p>
+                        <a href="https://www.sewausa.org/Lead" class="read-more" target="_blank">Register &rarr;</a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label">Benefits</div>
-                <h2 class="section-title">What Participants Gain</h2>
-                <p class="section-subtitle">LEAD develops well-rounded leaders through service, learning, and community engagement.</p>
-            </div>
-            <div class="benefits-grid">
-                <div class="benefit">
-                    <div class="icon">&#127793;</div>
-                    <h3>Personal Growth</h3>
-                    <p>Well-rounded development through service and reflection</p>
-                </div>
-                <div class="benefit">
-                    <div class="icon">&#128101;</div>
-                    <h3>Community Leaders</h3>
-                    <p>Engage with socially responsible community leaders</p>
-                </div>
-                <div class="benefit">
-                    <div class="icon">&#128149;</div>
-                    <h3>Self Upliftment</h3>
-                    <p>Self upliftment through selfless service to others</p>
-                </div>
-                <div class="benefit">
-                    <div class="icon">&#127908;</div>
-                    <h3>New Competencies</h3>
-                    <p>Public speaking, time management, planning, fundraising</p>
-                </div>
-                <div class="benefit">
-                    <div class="icon">&#128161;</div>
-                    <h3>Innovation</h3>
-                    <p>Innovation and problem solving through real-world projects</p>
-                </div>
-                <div class="benefit">
-                    <div class="icon">&#129309;</div>
-                    <h3>Peer Relationships</h3>
-                    <p>Strengthening peer relationships and building networks</p>
-                </div>
-                <div class="benefit">
-                    <div class="icon">&#127760;</div>
-                    <h3>Community Impact</h3>
-                    <p>Contribute to community initiatives and Sewa projects</p>
-                </div>
-                <div class="benefit">
-                    <div class="icon">&#127942;</div>
-                    <h3>Service Recognition</h3>
-                    <p>Service hours recognition with awards and certificates</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Awards -->
-    <section class="awards" id="awards">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label">Recognition</div>
-                <h2 class="section-title">Awards &amp; Certificates</h2>
-                <p class="section-subtitle">Sewa Pins and Certificates are awarded upon completing 100 service hours each fiscal year. Minimum 75 hours required to remain eligible for the next level.</p>
-            </div>
-            <div class="awards-grid">
-                <div class="award-card">
-                    <div class="medal" style="color:#cd7f32;">&#127941;</div>
-                    <div class="year">Year 1</div>
-                    <h3>Bronze Pin</h3>
-                    <p>Volunteer Service Award for dedicated participation and community service.</p>
-                </div>
-                <div class="award-card">
-                    <div class="medal" style="color:#c0c0c0;">&#127941;</div>
-                    <div class="year">Year 2</div>
-                    <h3>Silver Pin</h3>
-                    <p>Volunteer Service Learning Award for service with reflection and learning.</p>
-                </div>
-                <div class="award-card">
-                    <div class="medal" style="color:#f0a500;">&#127942;</div>
-                    <div class="year">Year 3</div>
-                    <h3>Gold Medal</h3>
-                    <p>Volunteer Service Learning Leadership Award. LEAD Graduation Certificate for cumulative accomplishment.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Program Details -->
-    <section id="details">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label">Details</div>
-                <h2 class="section-title">Program Guidelines</h2>
-                <p class="section-subtitle">Everything you need to know about eligibility, timeline, and enrollment.</p>
-            </div>
-            <div class="details-grid">
-                <div class="detail-card">
-                    <h3>&#9989; Eligibility</h3>
-                    <ul>
-                        <li>Current 8th, 9th, 10th, 11th, and 12th graders</li>
-                        <li>All statuses welcome (Citizenship, PR, H1B, etc.)</li>
-                        <li>Equal opportunity for all racial, ethnic, religious, and gender backgrounds</li>
-                        <li>Must enter from Level 1</li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <h3>&#128197; Timeline</h3>
-                    <ul>
-                        <li>Program runs October 1 to August 31 (school year cycle)</li>
-                        <li>Online courses: January 23 through March 14</li>
-                        <li>Self-paced project phase: April - July</li>
-                        <li>National Youth Conference in July</li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <h3>&#128176; Registration</h3>
-                    <ul>
-                        <li>$150 flat registration fee per year</li>
-                        <li>Centralized enrollment for all chapters</li>
-                        <li>Students and parents must commit to program rules</li>
-                        <li>20 minimum hours of parent commitment required</li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <h3>&#9200; Hours Requirements</h3>
-                    <ul>
-                        <li>100 hours minimum for Sewa National Presidential Award</li>
-                        <li>75 hours minimum to pass and advance</li>
-                        <li>Non-service hours capped at 20 for didactic sessions</li>
-                        <li>Unlimited service hours during implementation phase</li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <h3>&#128104;&#8205;&#127891; Mentorship</h3>
-                    <ul>
-                        <li>Teams of 4-5 students, each with an adult mentor</li>
-                        <li>Weekly live Zoom classes on weekends</li>
-                        <li>Mentor guides learning through breakout rooms</li>
-                        <li>Project mentorship during self-paced phase</li>
-                    </ul>
-                </div>
-                <div class="detail-card">
-                    <h3>&#127891; Graduation</h3>
-                    <ul>
-                        <li>3-year progressive program to graduate</li>
-                        <li>Achieve criteria at each level to advance</li>
-                        <li>LEAD Graduation Certificate and Gold Medal at Level 3</li>
-                        <li>Graduates can join Level 4 national leadership</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Timeline visual -->
-            <div class="timeline-bar">
-                <div class="timeline-phase phase-1">
-                    <h4>Oct - Dec</h4>
-                    <p>Chapter Onboarding &amp; Service</p>
-                </div>
-                <div class="timeline-phase phase-2">
-                    <h4>Jan - Mar</h4>
-                    <p>Online Learning Modules</p>
-                </div>
-                <div class="timeline-phase phase-3">
-                    <h4>Apr - Jul</h4>
-                    <p>Project &amp; Implementation</p>
-                </div>
-                <div class="timeline-phase phase-4">
-                    <h4>Jul - Aug</h4>
-                    <p>Conference &amp; Awards</p>
                 </div>
             </div>
         </div>
@@ -496,138 +321,332 @@ async def root():
     <!-- Service Activities -->
     <section class="activities" id="activities">
         <div class="container">
-            <div class="text-center">
-                <div class="section-label">Service Activities</div>
-                <h2 class="section-title">What LEADs Do at Chapters</h2>
-                <p class="section-subtitle">Each Sewa chapter organizes hands-on service projects across these focus areas. Here's a glimpse of the activities LEADs participate in.</p>
+            <div class="section-header centered">
+                <div class="label">What We Do</div>
+                <h2>Service Activities &amp; Community Impact</h2>
+                <div class="divider"></div>
+                <p>Our Detroit chapter LEADs participate in a wide range of hands-on service projects throughout the year. Here's how we make a difference in our community.</p>
             </div>
-            <div class="activities-categories">
-                <div class="activity-category">
-                    <div class="cat-header">
-                        <div class="cat-icon cat-green">&#127795;</div>
+
+            <!-- Activity 1 -->
+            <div class="activity-section">
+                <div class="activity-layout">
+                    <div class="activity-text">
                         <h3>Community Service &amp; Environment</h3>
+                        <p>Our LEADs roll up their sleeves to keep Metro Detroit clean and green. From highway and neighborhood cleanups to invasive plant removal at local parks, students learn the value of environmental stewardship through direct action.</p>
+                        <ul>
+                            <li><strong>Highway &amp; Neighborhood Cleanup</strong> &mdash; Regular cleanup drives along adopted highway stretches and local neighborhoods</li>
+                            <li><strong>Walkathons &amp; Save Soil Initiatives</strong> &mdash; Organized awareness walks and soil conservation projects</li>
+                            <li><strong>Invasive Plant Removal</strong> &mdash; Partnering with local parks to restore native habitats</li>
+                            <li><strong>Community Garden Projects</strong> &mdash; Planting and maintaining gardens that benefit local families</li>
+                        </ul>
                     </div>
-                    <ul class="activity-list">
-                        <li>Highway &amp; Neighborhood Cleanup</li>
-                        <li>Walkathons &amp; Save Soil Initiatives</li>
-                        <li>Invasive Plant Removal</li>
-                        <li>Park Restoration &amp; Tree Planting</li>
-                        <li>Community Garden Projects</li>
-                    </ul>
+                    <div class="activity-image">
+                        <div class="img-placeholder">
+                            <div class="icon">&#127795;</div>
+                            Photo: LEADs doing cleanup or gardening<br>
+                            <em>e.g., students in yellow shirts planting or cleaning up</em>
+                        </div>
+                    </div>
                 </div>
-                <div class="activity-category">
-                    <div class="cat-header">
-                        <div class="cat-icon cat-orange">&#127858;</div>
+            </div>
+
+            <!-- Activity 2 -->
+            <div class="activity-section">
+                <div class="activity-layout reverse">
+                    <div class="activity-text">
                         <h3>Hunger Relief &amp; Basic Needs</h3>
+                        <p>Fighting hunger is at the heart of our chapter's service work. Our students regularly volunteer at food banks, prepare and serve meals for those in need, and organize supply drives for local families facing hardship.</p>
+                        <ul>
+                            <li><strong>Food Service &amp; Meal Preparation</strong> &mdash; Preparing hundreds of meals including our signature Burrito Sewa sandwich-making drives</li>
+                            <li><strong>Forgotten Harvest</strong> &mdash; Volunteering at Metro Detroit's leading food rescue organization</li>
+                            <li><strong>Thrift Store Assistance</strong> &mdash; Helping sort, organize, and serve at local thrift stores</li>
+                            <li><strong>Family Support Drives</strong> &mdash; Collecting and distributing food, clothing, and supplies to families in need</li>
+                        </ul>
                     </div>
-                    <ul class="activity-list">
-                        <li>Food Service &amp; Meal Preparation</li>
-                        <li>Food Bank Volunteering (Forgotten Harvest)</li>
-                        <li>Thrift Store Assistance</li>
-                        <li>Burrito Sewa &amp; Sandwich Making Drives</li>
-                        <li>Providing Food &amp; Supplies to Families</li>
-                    </ul>
+                    <div class="activity-image">
+                        <div class="img-placeholder">
+                            <div class="icon">&#127858;</div>
+                            Photo: LEADs at food bank or meal prep<br>
+                            <em>e.g., students making sandwiches or at Forgotten Harvest</em>
+                        </div>
+                    </div>
                 </div>
-                <div class="activity-category">
-                    <div class="cat-header">
-                        <div class="cat-icon cat-red">&#129657;</div>
+            </div>
+
+            <!-- Activity 3 -->
+            <div class="activity-section">
+                <div class="activity-layout">
+                    <div class="activity-text">
                         <h3>Health &amp; Wellness</h3>
+                        <p>Our LEADs support community health through blood drives, wellness events, and senior care programs. These activities connect students with healthcare professionals and teach the importance of giving back to vulnerable populations.</p>
+                        <ul>
+                            <li><strong>Blood Drives</strong> &mdash; Organizing and supporting community blood donation events</li>
+                            <li><strong>Doctors for Sewa</strong> &mdash; Assisting at free health camps and wellness screenings</li>
+                            <li><strong>Senior Support</strong> &mdash; Visiting and assisting senior citizens in our community</li>
+                            <li><strong>Health Awareness Campaigns</strong> &mdash; Educating the community on health and wellness topics</li>
+                        </ul>
                     </div>
-                    <ul class="activity-list">
-                        <li>Blood Drives</li>
-                        <li>Doctors for Sewa</li>
-                        <li>Senior Support &amp; Elder Care</li>
-                        <li>Health Camps &amp; Awareness</li>
-                        <li>Mental Health &amp; Wellness Workshops</li>
-                    </ul>
+                    <div class="activity-image">
+                        <div class="img-placeholder">
+                            <div class="icon">&#129657;</div>
+                            Photo: LEADs at a health event<br>
+                            <em>e.g., blood drive or senior support activity</em>
+                        </div>
+                    </div>
                 </div>
-                <div class="activity-category">
-                    <div class="cat-header">
-                        <div class="cat-icon cat-blue">&#128218;</div>
+            </div>
+
+            <!-- Activity 4 -->
+            <div class="activity-section">
+                <div class="activity-layout reverse">
+                    <div class="activity-text">
                         <h3>Education &amp; Youth Programs</h3>
+                        <p>LEADs support education both as learners and as teachers. Through tutoring programs, hospital gift wrapping, and speaker series, students develop their own skills while lifting up others in the community.</p>
+                        <ul>
+                            <li><strong>ASPIRE Tutoring</strong> &mdash; Peer-to-peer and cross-age tutoring for underserved students in the community</li>
+                            <li><strong>Gift Wrapping for Hospitals</strong> &mdash; Brightening the days of hospitalized children with gifts and cards</li>
+                            <li><strong>Speaker Series</strong> &mdash; Monthly talks from community leaders, entrepreneurs, and professionals</li>
+                            <li><strong>Sewa Academy Online Courses</strong> &mdash; Nationally curated leadership and service learning curriculum</li>
+                        </ul>
                     </div>
-                    <ul class="activity-list">
-                        <li>ASPIRE Tutoring for Underserved Students</li>
-                        <li>Gift Wrapping for Hospitals</li>
-                        <li>Speaker Series &amp; Workshop Hosting</li>
-                        <li>Sewa Academy Online Courses</li>
-                        <li>National Youth Conference</li>
-                    </ul>
+                    <div class="activity-image">
+                        <div class="img-placeholder">
+                            <div class="icon">&#128218;</div>
+                            Photo: LEADs tutoring or at a workshop<br>
+                            <em>e.g., students at ASPIRE session or speaker event</em>
+                        </div>
+                    </div>
                 </div>
-                <div class="activity-category">
-                    <div class="cat-header">
-                        <div class="cat-icon cat-purple">&#127760;</div>
+            </div>
+
+            <!-- Activity 5 -->
+            <div class="activity-section">
+                <div class="activity-layout">
+                    <div class="activity-text">
                         <h3>Social Causes &mdash; Local &amp; Global</h3>
+                        <p>Beyond our regular service activities, LEADs engage with broader social issues. Whether it's providing aid during a crisis, raising funds for a cause, or running awareness campaigns, our students learn to think globally while acting locally.</p>
+                        <ul>
+                            <li><strong>Disaster Relief &amp; Crisis Aid</strong> &mdash; Mobilizing quickly to support communities in times of need</li>
+                            <li><strong>Fundraising Campaigns</strong> &mdash; Organizing events and drives to raise funds for local and global causes</li>
+                            <li><strong>Environmental Advocacy</strong> &mdash; Protecting natural resources through awareness and action</li>
+                            <li><strong>Civic Engagement</strong> &mdash; Building bridges across communities through collaborative service</li>
+                        </ul>
                     </div>
-                    <ul class="activity-list">
-                        <li>Aid in Times of Crisis &amp; Disaster Relief</li>
-                        <li>Empower Students Through Education</li>
-                        <li>Protect the Environment</li>
-                        <li>Fundraising &amp; Awareness Campaigns</li>
-                        <li>Civic Engagement &amp; Community Building</li>
-                    </ul>
-                </div>
-                <div class="activity-category">
-                    <div class="cat-header">
-                        <div class="cat-icon" style="background:#fef3c7;">&#129309;</div>
-                        <h3>How You Can Help</h3>
+                    <div class="activity-image">
+                        <div class="img-placeholder">
+                            <div class="icon">&#127760;</div>
+                            Photo: LEADs at a social cause event<br>
+                            <em>e.g., walkathon, fundraiser, or awareness campaign</em>
+                        </div>
                     </div>
-                    <ul class="activity-list">
-                        <li>Volunteer your time at chapter events</li>
-                        <li>Become a parent mentor (4-5 student team)</li>
-                        <li>Make a tax-deductible donation</li>
-                        <li>Spread the word in your community</li>
-                        <li>Host or sponsor a service event</li>
-                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Chapters -->
-    <section class="chapters" id="chapters">
+    <!-- Program Structure -->
+    <section class="structure" id="program">
         <div class="container">
-            <div class="text-center">
-                <div class="section-label">Chapters</div>
-                <h2 class="section-title">Find Your Local Chapter</h2>
-                <p class="section-subtitle">LEAD operates through local Sewa chapters across the country. Each chapter hosts speaker series, meetings, and hands-on service projects.</p>
+            <div class="section-header centered">
+                <div class="label">Program</div>
+                <h2>4-Year Graduation Pathway</h2>
+                <div class="divider"></div>
+                <p>LEAD is a progressive program. Students enter at Level 1 and advance each year by completing service hours, coursework, and community projects. Upon graduating Level 3, students receive the LEAD Graduation Certificate and Gold Medal.</p>
             </div>
-            <div class="chapters-grid">
-                <div class="chapter"><div class="region">Northeast</div><h3>New Jersey</h3></div>
-                <div class="chapter"><div class="region">Northeast</div><h3>New York</h3></div>
-                <div class="chapter"><div class="region">Northeast</div><h3>Connecticut</h3></div>
-                <div class="chapter"><div class="region">Southeast</div><h3>Atlanta</h3></div>
-                <div class="chapter"><div class="region">Southeast</div><h3>Charlotte</h3></div>
-                <div class="chapter"><div class="region">Southeast</div><h3>Tampa</h3></div>
-                <div class="chapter"><div class="region">South</div><h3>Dallas</h3></div>
-                <div class="chapter"><div class="region">South</div><h3>Houston</h3></div>
-                <div class="chapter"><div class="region">South</div><h3>Austin</h3></div>
-                <div class="chapter"><div class="region">Midwest</div><h3>Chicago</h3></div>
-                <div class="chapter"><div class="region">Midwest</div><h3>Detroit</h3></div>
-                <div class="chapter"><div class="region">Midwest</div><h3>Columbus</h3></div>
-                <div class="chapter"><div class="region">West</div><h3>Bay Area</h3></div>
-                <div class="chapter"><div class="region">West</div><h3>Los Angeles</h3></div>
-                <div class="chapter"><div class="region">West</div><h3>Seattle</h3></div>
-                <div class="chapter"><div class="region">West</div><h3>Phoenix</h3></div>
+            <div class="pathway">
+                <div class="pathway-step">
+                    <div class="step-badge badge-bronze"><span class="year">Year 1</span><span class="level">1</span></div>
+                    <div class="step-content">
+                        <h3>Bronze &mdash; Ready to LEAD</h3>
+                        <div class="award-name">Volunteer Service Award &middot; Bronze Pin</div>
+                        <p>Students begin with the Ready to LEAD (RTL) course, learning the foundations of service, community engagement, and Sewa values. They participate in chapter service projects, attend speaker series, and begin logging their 100+ service hours for the year. This is where every LEAD's journey starts.</p>
+                    </div>
+                </div>
+                <div class="pathway-step">
+                    <div class="step-badge badge-silver"><span class="year">Year 2</span><span class="level">2</span></div>
+                    <div class="step-content">
+                        <h3>Silver &mdash; Design to LEAD</h3>
+                        <div class="award-name">Volunteer Service Learning Award &middot; Silver Pin</div>
+                        <p>Students take the Design To LEAD (DTL) course, which deepens their service learning with a mandatory project completion. They design and execute their own community service project, applying leadership and planning skills. This is where LEADs transition from participants to project leaders.</p>
+                    </div>
+                </div>
+                <div class="pathway-step">
+                    <div class="step-badge badge-gold"><span class="year">Year 3</span><span class="level">3</span></div>
+                    <div class="step-content">
+                        <h3>Gold &mdash; VANI LEADership</h3>
+                        <div class="award-name">Volunteer Service Learning Leadership Award &middot; Gold Medal &amp; Graduation Certificate</div>
+                        <p>The pinnacle of the LEAD program. Students take VANI &mdash; The Sewa LEADership Course, serve as DTL mentors for Level 2 students, and lead teams. Upon completing this level with 100+ hours, LEADs receive their Graduation Certificate and Gold Medal recognizing three years of cumulative service and leadership.</p>
+                    </div>
+                </div>
+                <div class="pathway-step">
+                    <div class="step-badge badge-platinum"><span class="year">Year 4</span><span class="level">4</span></div>
+                    <div class="step-content">
+                        <h3>Platinum &mdash; National Leadership</h3>
+                        <div class="award-name">National Service Leadership Excellence Award</div>
+                        <p>LEAD graduates can continue into Year 4 and join the National Youth Council. At this level, students participate in national-level planning and execution, mentoring younger LEADs across chapters, and shaping the future direction of the LEAD program nationwide.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section id="gallery">
+        <div class="container">
+            <div class="section-header centered">
+                <div class="label">Gallery</div>
+                <h2>Our LEADs in Action</h2>
+                <div class="divider"></div>
+                <p>A glimpse into the service, learning, and camaraderie at Sewa LEAD Detroit.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="img-placeholder" style="height:100%;">
+                        <div class="icon">&#128247;</div>Group service event
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="img-placeholder" style="height:100%;">
+                        <div class="icon">&#128247;</div>Food bank volunteering
+                    </div>
+                </div>
+                <div class="gallery-item tall">
+                    <div class="img-placeholder" style="height:100%;">
+                        <div class="icon">&#128247;</div>Chapter meeting or speaker event
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="img-placeholder" style="height:100%;">
+                        <div class="icon">&#128247;</div>Award ceremony
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="img-placeholder" style="height:100%;">
+                        <div class="icon">&#128247;</div>Cleanup drive
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="img-placeholder" style="height:100%;">
+                        <div class="icon">&#128247;</div>Team photo
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Involved -->
+    <section class="involvement" id="join">
+        <div class="container">
+            <div class="section-header centered">
+                <div class="label">Get Involved</div>
+                <h2>How You Can Help</h2>
+                <div class="divider"></div>
+                <p>Whether you're a student, parent, or community member, there's a place for you in Sewa LEAD Detroit.</p>
+            </div>
+            <div class="involve-grid">
+                <div class="involve-card">
+                    <div class="card-icon">&#127891;</div>
+                    <h3>Join as a Student</h3>
+                    <p>Are you in grades 8-12? Join LEAD to earn service hours, develop leadership skills, build your college resume, and make lifelong friendships while making a real difference in Detroit. The program runs October through August with a $150 annual registration fee. All backgrounds are welcome.</p>
+                </div>
+                <div class="involve-card">
+                    <div class="card-icon">&#128104;&#8205;&#128105;&#8205;&#128103;</div>
+                    <h3>Become a Parent Mentor</h3>
+                    <p>Parent mentors are the backbone of LEAD. You'll guide a team of 4-5 students through their online learning modules, facilitate breakout room discussions on Zoom, track progress, and help with project mentorship. The time commitment is approximately 3 hours per week from January through March, and flexible hours during the project phase.</p>
+                </div>
+                <div class="involve-card">
+                    <div class="card-icon">&#129309;</div>
+                    <h3>Volunteer &amp; Donate</h3>
+                    <p>Support our chapter by volunteering at service events, hosting or sponsoring activities, or making a tax-deductible donation. Every contribution helps us expand our reach and serve more families in Metro Detroit. Your time, skills, and generosity make our programs possible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Details -->
+    <section class="details">
+        <div class="container">
+            <div class="section-header centered">
+                <div class="label">Details</div>
+                <h2>Program Information</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="details-layout">
+                <div class="detail-block">
+                    <h3>Eligibility &amp; Registration</h3>
+                    <p>LEAD is open to all high school students in grades 8 through 12, regardless of citizenship, permanent residency, H1B, or any other immigration status. Sewa is a Hindu faith-based organization but provides equal opportunity to all racial, ethnic, religious, and gender backgrounds.</p>
+                    <p>Students and parents must be sincerely committed to the program. A $150 flat registration fee is charged per year. All new students enter at Level 1, regardless of grade level.</p>
+                </div>
+                <div class="detail-block">
+                    <h3>Hours &amp; Project Requirements</h3>
+                    <ul>
+                        <li>Minimum <strong>100 service hours per year</strong> to receive the Sewa National Presidential Award</li>
+                        <li>Minimum <strong>75 hours</strong> required to pass and advance to the next level</li>
+                        <li>Non-service hours are capped at <strong>20 hours</strong> for didactic sessions</li>
+                        <li>Unlimited service hours can be logged during the implementation phase (April-May)</li>
+                        <li>Project completion is <strong>mandatory for Level 2</strong>, optional for Levels 1 and 3</li>
+                        <li><strong>20 hours minimum parent commitment</strong> is required</li>
+                    </ul>
+                </div>
+                <div class="detail-block">
+                    <h3>Program Calendar</h3>
+                    <p><strong>October - December:</strong> Chapter onboarding, service projects, speaker series, and community engagement activities begin.</p>
+                    <p><strong>January - March:</strong> Online learning modules through Sewa Academy on Zoho LMS. Live Zoom classes on weekends with team-based breakout sessions. Break during Presidents Day weekend.</p>
+                    <p><strong>April - July:</strong> Self-paced project mentorship phase. Teams work on their service projects with mentor guidance.</p>
+                    <p><strong>July - August:</strong> National Youth Conference, regional conferences, award ceremonies, and celebrations.</p>
+                </div>
+                <div class="detail-block">
+                    <h3>Awards &amp; Recognition</h3>
+                    <p><strong>Year 1 &mdash; Bronze Pin:</strong> Volunteer Service Award recognizing dedicated participation and community service contributions.</p>
+                    <p><strong>Year 2 &mdash; Silver Pin:</strong> Volunteer Service Learning Award for exceptional commitment to service with reflection and learning.</p>
+                    <p><strong>Year 3 &mdash; Gold Medal:</strong> Volunteer Service Learning Leadership Award and LEAD Graduation Certificate. The certificate reflects cumulative accomplishment across all three years.</p>
+                    <p><strong>Year 4 &mdash; Platinum:</strong> National Service Leadership Excellence Award for graduates who join the National Youth Council.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-section" id="join">
+    <div class="cta-banner">
         <h2>Ready to Lead Through Service?</h2>
-        <p>Join thousands of high school students across America who are building leadership skills, serving their communities, and making a difference through Sewa LEAD.</p>
-        <a href="https://www.sewausa.org/Lead" class="btn-dark" target="_blank">Register Now</a>
-    </section>
+        <p>Join Sewa LEAD Detroit and become part of a community of young leaders who are making a real difference. Whether you're a student, parent, or community supporter, there's a place for you here.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+            <a href="https://www.sewausa.org/Lead" class="btn btn-dark" target="_blank">Register for LEAD</a>
+            <a href="https://www.sewausa.org/Donate-for-Detroit-MI" class="btn btn-dark" target="_blank">Donate to Detroit Chapter</a>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div>Sewa LEAD &middot; Sewa International USA &middot; Pathways to Serve Through Leadership</div>
-            <div class="footer-links">
-                <a href="https://www.sewausa.org/Lead" target="_blank">sewausa.org/Lead</a>
-                <a href="mailto:lead@sewausa.org">lead@sewausa.org</a>
+        <div class="footer-grid">
+            <div>
+                <h4>Sewa LEAD &middot; Detroit Chapter</h4>
+                <p>Sewa International USA is a Hindu faith-inspired, non-profit service organization. LEAD (Leadership, Education and Development) is our flagship youth development program empowering high school students to serve communities and develop as leaders.</p>
+                <p style="margin-top:1rem;">Together We Serve Better.</p>
             </div>
+            <div>
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="https://www.sewausa.org/Lead" target="_blank">Register for LEAD</a>
+                    <a href="https://www.sewausa.org" target="_blank">Sewa International USA</a>
+                    <a href="https://www.sewausa.org/Donate-for-Detroit-MI" target="_blank">Donate to Detroit</a>
+                    <a href="#about">About the Program</a>
+                    <a href="#activities">Service Activities</a>
+                </div>
+            </div>
+            <div>
+                <h4>Contact Us</h4>
+                <div class="footer-links">
+                    <a href="mailto:Detroit@sewausa.org">Detroit@sewausa.org</a>
+                    <a href="mailto:lead@sewausa.org">lead@sewausa.org</a>
+                    <a href="tel:+17343956952">+1 (734) 395-6952</a>
+                    <a>Anand Pappuri, Chapter Coordinator</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Sewa International USA &middot; Detroit Chapter &middot; All donations are tax-deductible.
         </div>
     </footer>
 
